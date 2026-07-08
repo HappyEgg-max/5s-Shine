@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>5S Shine Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#00686d;         /* corporate primary */
+    --teal-dark:#004d51;
+    --teal-light:#e3f2f2;
+    --ink:#20262b;
+    --paper:#f2f5f5;
+    --card:#ffffff;
+    --line:#d7dee0;
+    --muted:#5f6b70;
+    --ok:#1f9d55;
+    --bad:#d64545;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Archivo',system-ui,-apple-system,sans-serif;
+    background:var(--paper);color:var(--ink);min-height:100vh;
+  }
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    background:var(--teal);color:#fff;
+    padding:14px 16px calc(14px);
+    padding-top:calc(14px + env(safe-area-inset-top));
+    display:flex;align-items:center;gap:12px;
+    position:sticky;top:0;z-index:10;
+    box-shadow:0 2px 6px rgba(0,0,0,.12);
+  }
+  .backbtn{
+    background:rgba(255,255,255,.15);border:none;color:#fff;
+    width:38px;height:38px;border-radius:50%;font-size:1.2rem;
+    cursor:pointer;flex:0 0 auto;display:none;
+  }
+  .brand{flex:1;min-width:0}
+  .brand .co{font-weight:800;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;opacity:.85}
+  .brand .ttl{font-weight:700;font-size:1.1rem;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+  main{max-width:640px;margin:0 auto;padding:18px 16px 40px}
+  .screen{display:none}
+  .screen.show{display:block;animation:fade .18s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  /* ---------- home ---------- */
+  .hero{
+    background:linear-gradient(160deg,var(--teal) 0%,var(--teal-dark) 100%);
+    color:#fff;border-radius:var(--radius);
+    padding:28px 22px;margin-bottom:18px;
+  }
+  .hero h2{font-size:1.5rem;font-weight:800;line-height:1.25;margin-bottom:6px}
+  .hero p{opacity:.85;font-size:.9rem}
+  .menu{display:flex;flex-direction:column;gap:12px}
+  .menubtn{
+    display:flex;align-items:center;justify-content:space-between;
+    font:inherit;font-weight:700;font-size:1.05rem;
+    background:var(--card);color:var(--teal);
+    border:1.5px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;cursor:pointer;min-height:60px;
+    transition:transform .06s ease, border-color .15s;
+  }
+  .menubtn:active{transform:scale(.98)}
+  .menubtn .arrow{color:var(--teal);font-weight:800}
+  .menubtn.primary{background:var(--teal);color:#fff;border-color:var(--teal)}
+  .menubtn.primary .arrow{color:#fff}
+
+  /* ---------- category ---------- */
+  .prompt{font-weight:700;font-size:1.15rem;margin:4px 2px 14px}
+  .catbtn{
+    display:block;width:100%;font:inherit;font-weight:700;font-size:1.1rem;
+    background:var(--card);color:var(--teal);
+    border:1.5px solid var(--line);border-radius:var(--radius);
+    padding:26px 20px;margin-bottom:12px;cursor:pointer;text-align:center;
+    transition:transform .06s ease;
+  }
+  .catbtn:active{transform:scale(.98)}
+  .catbtn small{display:block;color:var(--muted);font-weight:500;font-size:.8rem;margin-top:4px}
+
+  /* ---------- form ---------- */
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:14px;margin-bottom:10px;box-shadow:0 1px 2px rgba(32,38,43,.04);
+  }
+  label.fl{
+    display:block;font-weight:700;font-size:.8rem;color:var(--teal-dark);
+    text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;
+  }
+  label.fl .req{color:var(--bad)}
+  input[type=text], textarea, select{
+    width:100%;font:inherit;font-size:1rem;padding:12px;
+    border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);
+  }
+  input:focus,textarea:focus,select:focus{
+    outline:none;border-color:var(--teal);
+    box-shadow:0 0 0 3px rgba(0,104,109,.15);
+  }
+  textarea{resize:vertical;min-height:80px}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media(max-width:420px){.row2{grid-template-columns:1fr}}
+
+  .toggle{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .toggle button{
+    font:inherit;font-weight:700;padding:12px 0;min-height:46px;
+    border:1.5px solid var(--line);border-radius:10px;background:#fff;
+    color:var(--muted);cursor:pointer;
+  }
+  .toggle button.on{background:var(--teal);border-color:var(--teal);color:#fff}
+
+  .sec{
+    font-weight:800;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--teal-dark);margin:20px 2px 10px;display:flex;align-items:center;gap:10px;
+  }
+  .sec::after{content:"";flex:1;height:2px;background:var(--line)}
+
+  .qtext{font-weight:600;font-size:.98rem;line-height:1.45;margin-bottom:10px}
+  .qnum{color:var(--teal);font-weight:800;margin-right:4px}
+  .yn{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .yn button{
+    font:inherit;font-weight:700;font-size:.95rem;padding:12px 0;min-height:46px;
+    border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--muted);
+    cursor:pointer;transition:transform .06s ease;
+  }
+  .yn button:active{transform:scale(.97)}
+  .yn button.yes.on{background:var(--ok);border-color:var(--ok);color:#fff}
+  .yn button.no.on{background:var(--bad);border-color:var(--bad);color:#fff}
+  .qcomment{display:none;margin-top:8px}
+  .qcomment.show{display:block}
+
+  /* ---------- photos ---------- */
+  .photobar{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .addphoto{
+    width:72px;height:72px;border:2px dashed var(--teal);border-radius:10px;
+    background:var(--teal-light);color:var(--teal);font-size:1.6rem;font-weight:700;
+    cursor:pointer;
+  }
+  .thumb{position:relative;width:72px;height:72px}
+  .thumb img{width:100%;height:100%;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
+  .thumb .rm{
+    position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;
+    border:none;background:var(--bad);color:#fff;font-size:.75rem;font-weight:800;cursor:pointer;
+    line-height:1;
+  }
+
+  /* ---------- submit ---------- */
+  .submit{
+    width:100%;font:inherit;font-weight:800;font-size:1.1rem;letter-spacing:.03em;
+    padding:16px 0;min-height:54px;border:none;border-radius:12px;margin-top:16px;
+    background:#c4ccce;color:#7b8589;cursor:not-allowed;transition:background .2s;
+  }
+  .submit.ready{background:var(--teal);color:#fff;cursor:pointer}
+  .submit.ready:active{transform:scale(.99)}
+  .hint{font-size:.8rem;color:var(--muted);text-align:center;margin-top:8px}
+
+  /* ---------- entries ---------- */
+  .entry{border-left:4px solid var(--teal);padding-left:12px}
+  .entry .e1{font-weight:700}
+  .entry .e2{font-size:.85rem;color:var(--muted);margin-top:2px}
+  .empty{color:var(--muted);text-align:center;padding:30px 0;font-size:.95rem}
+
+  /* ---------- done ---------- */
+  .done-icon{
+    width:72px;height:72px;border-radius:50%;background:var(--ok);color:#fff;
+    font-size:2.2rem;display:flex;align-items:center;justify-content:center;margin:20px auto 14px;
+  }
+  .done-h{font-weight:800;font-size:1.3rem;text-align:center;margin-bottom:8px}
+  .done-p{color:var(--muted);text-align:center;font-size:.92rem;line-height:1.5;margin-bottom:16px}
+  pre.report{
+    background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px;
+    font-size:.78rem;white-space:pre-wrap;word-break:break-word;max-height:38vh;overflow:auto;margin-bottom:12px;
+  }
+  .btn{
+    display:block;width:100%;font:inherit;font-weight:700;font-size:1rem;
+    padding:14px;border-radius:12px;border:1.5px solid var(--teal);
+    background:var(--teal);color:#fff;cursor:pointer;margin-bottom:10px;min-height:50px;
+  }
+  .btn.ghost{background:#fff;color:var(--teal)}
+  button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{
+    outline:3px solid var(--teal);outline-offset:2px;
+  }
+  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <button class="backbtn" id="backBtn" aria-label="Back">‹</button>
+  <div class="brand">
+    <div class="co" id="coName"></div>
+    <div class="ttl" id="appTitle"></div>
+  </div>
+</div>
+
+<main>
+  <!-- HOME -->
+  <section class="screen" id="scr-home">
+    <div class="hero">
+      <h2 id="heroTitle"></h2>
+      <p id="heroDate"></p>
+    </div>
+    <div class="menu">
+      <button class="menubtn primary" onclick="go('cat')">New Check <span class="arrow">→</span></button>
+      <button class="menubtn" onclick="renderEntries();go('entries')">Today's Entries (this device) <span class="arrow">→</span></button>
+    </div>
+  </section>
+
+  <!-- CATEGORY -->
+  <section class="screen" id="scr-cat">
+    <div class="prompt">Please select a category</div>
+    <div id="catList"></div>
+  </section>
+
+  <!-- FORM -->
+  <section class="screen" id="scr-form">
+    <div class="prompt" id="formTitle"></div>
+
+    <div class="card">
+      <div class="row2">
+        <div>
+          <label class="fl">Employee ID <span class="req">*</span></label>
+          <input type="text" id="empId" placeholder="e.g. SG12345" autocomplete="off">
+        </div>
+        <div>
+          <label class="fl">Area Responsible</label>
+          <input type="text" id="areaResp" placeholder="Name (optional)" autocomplete="off">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <label class="fl">Area / Location <span class="req">*</span></label>
+      <input type="text" id="areaLoc" list="areaOptions" placeholder="Select or type" autocomplete="off">
+      <datalist id="areaOptions"></datalist>
+    </div>
+
+    <div class="card">
+      <label class="fl">Shift <span class="req">*</span></label>
+      <div class="toggle" id="shiftToggle">
+        <button type="button" data-v="Day">☀ Day</button>
+        <button type="button" data-v="Night">☾ Night</button>
+      </div>
+    </div>
+
+    <div class="sec">Checklist</div>
+    <div id="qList"></div>
+
+    <div class="sec">Photos</div>
+    <div class="card">
+      <label class="fl">Attach photos (camera or gallery)</label>
+      <div class="photobar" id="photoBar">
+        <button type="button" class="addphoto" id="addPhotoBtn" aria-label="Add photo">＋</button>
+      </div>
+      <input type="file" id="photoInput" accept="image/*" capture="environment" multiple hidden>
+    </div>
+
+    <div class="sec">Remarks</div>
+    <div class="card">
+      <textarea id="remarks" placeholder="Any other observations (optional)"></textarea>
+    </div>
+
+    <button class="submit" id="submitBtn" disabled>Complete required fields</button>
+    <div class="hint" id="submitHint"></div>
+  </section>
+
+  <!-- ENTRIES -->
+  <section class="screen" id="scr-entries">
+    <div class="prompt">Today's entries on this device</div>
+    <div id="entryList"></div>
+  </section>
+
+  <!-- DONE -->
+  <section class="screen" id="scr-done">
+    <div class="done-icon">✓</div>
+    <div class="done-h">Report ready to send</div>
+    <div class="done-p" id="doneMsg"></div>
+    <pre class="report" id="reportOut"></pre>
+    <button class="btn" id="shareAgainBtn">Send / Share again</button>
+    <button class="btn ghost" id="copyBtn">Copy report text</button>
+    <button class="btn ghost" onclick="location.reload()">New check</button>
+  </section>
+</main>
+
+<script>
+/* ============================================================
+   EDIT ME — all wording, sites, and questions live here.
+   ============================================================ */
+const CONFIG = {
+
+  company: "DSV",                    // shown in the header
+  appTitle: "Unit 2 · 5S Shine Plan",// shown in the header
+  heroTitle: "Daily 5S Shine Check", // home screen title
+
+  // Team mailbox / channel email the report is sent to
+  emailTo: "team-mailbox@yourcompany.com",
+  emailSubject: "5S SHINE REPORT",
+
+  // Area / location suggestions (operator can also type freely)
+  areas: ["Zone A", "Zone B", "Kitting Line 1", "Kitting Line 2", "Packing", "Inbound Dock", "Outbound Dock"],
+
+  // Categories — each has its own checklist. Add/remove freely.
+  categories: [
+    {
+      name: "Functional Area",
+      note: "Offices, workstations, functional zones",
+      questions: [
+        "No irrelevant reference materials, documents, drawings, etc  没有无关的参考资料，文件，图纸等",
+        "Confidential documents are disposed into designated bin  机密文件放入指定的垃圾箱",
+        "Workstations are clean and free of clutter  工作台干净整洁",
+        "Lighting is in working condition  照明灯处于工作状态",
+        "Pictures and signage are available  提供图片和标牌"
+      ]
+    },
+    {
+      name: "Floor Storage",
+      note: "Floor stacking and staging areas",
+      questions: [
+        "Floor markings are visible and not worn out  地面标线清晰可见",
+        "Pallets are stacked within marked boundaries  托盘堆放在标线范围内",
+        "No damaged pallets or leaking cartons  没有损坏的托盘或渗漏的纸箱",
+        "Aisles are clear of obstruction  通道畅通无阻",
+        "Floor is clean — no dust, debris, or spills  地面干净，无灰尘、杂物或溢出物"
+      ]
+    },
+    {
+      name: "Rack Storage",
+      note: "Racking and high-bay areas",
+      questions: [
+        "Racks are free of dust and cobwebs  货架无灰尘和蜘蛛网",
+        "Rack labels are clean and readable  货架标签干净可读",
+        "No overhanging or unstable cartons  没有悬空或不稳定的纸箱",
+        "Rack safety pins are in place  货架安全销齐全",
+        "Beam levels are not visibly damaged  横梁无明显损坏"
+      ]
+    }
+  ]
+};
+/* ================= end of editable part ==================== */
+
+
+// ---------- state ----------
+const state = {
+  category: null,
+  answers: [], comments: [],
+  shift: null,
+  photos: []   // {file, url}
+};
+let lastShare = null; // rebuilt payload for re-share
+
+// ---------- header / home ----------
+document.getElementById("coName").textContent = CONFIG.company;
+document.getElementById("appTitle").textContent = CONFIG.appTitle;
+document.getElementById("heroTitle").textContent = CONFIG.heroTitle;
+const now = new Date();
+document.getElementById("heroDate").textContent =
+  now.toLocaleDateString(undefined,{weekday:"long", day:"2-digit", month:"long", year:"numeric"});
+
+// ---------- navigation ----------
+const screens = ["home","cat","form","entries","done"];
+let current = "home";
+function go(name){
+  screens.forEach(s=>document.getElementById("scr-"+s).classList.toggle("show", s===name));
+  document.getElementById("backBtn").style.display = (name==="home") ? "none" : "block";
+  current = name;
+  window.scrollTo(0,0);
+}
+document.getElementById("backBtn").onclick = ()=>{
+  if (current==="form") go("cat");
+  else go("home");
+};
+go("home");
+
+// ---------- category list ----------
+const catList = document.getElementById("catList");
+CONFIG.categories.forEach(cat=>{
+  const b = document.createElement("button");
+  b.className = "catbtn";
+  b.innerHTML = cat.name + "<small>" + (cat.note||"") + "</small>";
+  b.onclick = ()=> startForm(cat);
+  catList.appendChild(b);
+});
+
+// ---------- area datalist ----------
+const dl = document.getElementById("areaOptions");
+CONFIG.areas.forEach(a=>{
+  const o = document.createElement("option"); o.value = a; dl.appendChild(o);
+});
+
+// ---------- form build ----------
+const qList = document.getElementById("qList");
+function startForm(cat){
+  state.category = cat;
+  state.answers = cat.questions.map(()=>null);
+  state.comments = cat.questions.map(()=>"");
+  state.shift = null;
+  state.photos.forEach(p=>URL.revokeObjectURL(p.url));
+  state.photos = [];
+  document.getElementById("formTitle").textContent = cat.name;
+  document.getElementById("empId").value = "";
+  document.getElementById("areaResp").value = "";
+  document.getElementById("areaLoc").value = "";
+  document.getElementById("remarks").value = "";
+  document.querySelectorAll("#shiftToggle button").forEach(b=>b.classList.remove("on"));
+  renderPhotos();
+
+  qList.innerHTML = "";
+  cat.questions.forEach((q,i)=>{
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML =
+      '<div class="qtext"><span class="qnum">'+String(i+1).padStart(2,"0")+'</span>'+q+'</div>'+
+      '<div class="yn">'+
+        '<button type="button" class="yes">Yes</button>'+
+        '<button type="button" class="no">No</button>'+
+      '</div>'+
+      '<div class="qcomment"><input type="text" placeholder="Comment — what\'s the issue? (optional)"></div>';
+    const yes = card.querySelector(".yes"), no = card.querySelector(".no");
+    const cbox = card.querySelector(".qcomment");
+    yes.onclick = ()=>{ state.answers[i]="Yes"; yes.classList.add("on"); no.classList.remove("on"); cbox.classList.remove("show"); refresh(); };
+    no.onclick  = ()=>{ state.answers[i]="No";  no.classList.add("on");  yes.classList.remove("on"); cbox.classList.add("show"); refresh(); };
+    card.querySelector("input").oninput = e => state.comments[i] = e.target.value.trim();
+    qList.appendChild(card);
+  });
+  refresh();
+  go("form");
+}
+
+// shift toggle
+document.querySelectorAll("#shiftToggle button").forEach(b=>{
+  b.onclick = ()=>{
+    state.shift = b.dataset.v;
+    document.querySelectorAll("#shiftToggle button").forEach(x=>x.classList.toggle("on", x===b));
+    refresh();
+  };
+});
+
+document.getElementById("empId").addEventListener("input", refresh);
+document.getElementById("areaLoc").addEventListener("input", refresh);
+
+// ---------- photos ----------
+const photoInput = document.getElementById("photoInput");
+document.getElementById("addPhotoBtn").onclick = ()=> photoInput.click();
+photoInput.onchange = async ()=>{
+  for (const f of photoInput.files){
+    const small = await compressImage(f);
+    state.photos.push({file: small, url: URL.createObjectURL(small)});
+  }
+  photoInput.value = "";
+  renderPhotos();
+};
+function renderPhotos(){
+  const bar = document.getElementById("photoBar");
+  bar.querySelectorAll(".thumb").forEach(t=>t.remove());
+  state.photos.forEach((p,i)=>{
+    const t = document.createElement("div");
+    t.className = "thumb";
+    t.innerHTML = '<img alt="photo '+(i+1)+'"><button type="button" class="rm" aria-label="Remove">✕</button>';
+    t.querySelector("img").src = p.url;
+    t.querySelector(".rm").onclick = ()=>{
+      URL.revokeObjectURL(p.url);
+      state.photos.splice(i,1);
+      renderPhotos();
+    };
+    bar.appendChild(t);
+  });
+}
+function compressImage(file){
+  return new Promise(resolve=>{
+    const img = new Image();
+    img.onload = ()=>{
+      const max = 1280;
+      let w = img.width, h = img.height;
+      if (Math.max(w,h) > max){ const k = max/Math.max(w,h); w=Math.round(w*k); h=Math.round(h*k); }
+      const c = document.createElement("canvas"); c.width=w; c.height=h;
+      c.getContext("2d").drawImage(img,0,0,w,h);
+      c.toBlob(b=>{
+        resolve(new File([b], "photo_"+Date.now()+".jpg", {type:"image/jpeg"}));
+        URL.revokeObjectURL(img.src);
+      }, "image/jpeg", 0.72);
+    };
+    img.onerror = ()=> resolve(file);
+    img.src = URL.createObjectURL(file);
+  });
+}
+
+// ---------- validation ----------
+const submitBtn = document.getElementById("submitBtn");
+function refresh(){
+  const empOk  = document.getElementById("empId").value.trim() !== "";
+  const areaOk = document.getElementById("areaLoc").value.trim() !== "";
+  const qOk    = state.answers.length>0 && state.answers.every(a=>a!==null);
+  const ready  = empOk && areaOk && state.shift && qOk;
+  submitBtn.disabled = !ready;
+  submitBtn.classList.toggle("ready", ready);
+  submitBtn.textContent = ready ? "Submit report" : "Complete required fields";
+  document.getElementById("submitHint").textContent = ready ? "" :
+    "Required: Employee ID, Area, Shift, and all checklist answers";
+}
+
+// ---------- report ----------
+function buildReport(){
+  const L = [];
+  L.push("=== 5S SHINE REPORT ===");
+  L.push("Date: " + new Date().toISOString());
+  L.push("Category: " + state.category.name);
+  L.push("EmployeeID: " + document.getElementById("empId").value.trim());
+  L.push("AreaResponsible: " + (document.getElementById("areaResp").value.trim() || "-"));
+  L.push("Area: " + document.getElementById("areaLoc").value.trim());
+  L.push("Shift: " + state.shift);
+  state.category.questions.forEach((q,i)=>{
+    let line = "Q"+(i+1)+": " + state.answers[i];
+    if (state.answers[i]==="No" && state.comments[i]) line += " | Comment: " + state.comments[i];
+    L.push(line);
+    L.push("Q"+(i+1)+"Text: " + q);
+  });
+  L.push("Photos: " + state.photos.length);
+  L.push("Remarks: " + (document.getElementById("remarks").value.trim() || "-"));
+  L.push("=== END ===");
+  return L.join("\n");
+}
+
+// ---------- submit ----------
+submitBtn.onclick = async ()=>{
+  if (submitBtn.disabled) return;
+  const report = buildReport();
+  const subject = CONFIG.emailSubject + " | " + state.category.name + " | " +
+                  document.getElementById("areaLoc").value.trim() + " | " +
+                  new Date().toLocaleDateString();
+
+  // local log (this device)
+  try{
+    const log = JSON.parse(localStorage.getItem("shine_log")||"[]");
+    log.push({t:Date.now(), cat:state.category.name,
+              area:document.getElementById("areaLoc").value.trim(),
+              emp:document.getElementById("empId").value.trim(),
+              no: state.answers.filter(a=>a==="No").length,
+              photos: state.photos.length});
+    localStorage.setItem("shine_log", JSON.stringify(log));
+  }catch(_){}
+
+  document.getElementById("reportOut").textContent = report;
+  lastShare = { report, subject, files: state.photos.map(p=>p.file) };
+  go("done");
+  await sendShare();
+};
+
+async function sendShare(){
+  if (!lastShare) return;
+  const {report, subject, files} = lastShare;
+  const doneMsg = document.getElementById("doneMsg");
+  const payload = { title: subject, text: "Send this report to: " + CONFIG.emailTo + "\n\n" + report, files };
+
+  if (files.length && navigator.canShare && navigator.canShare({files})){
+    doneMsg.textContent = "Your phone's share menu opened — choose your email or Teams app and send to " + CONFIG.emailTo + ". Report text and photos are attached.";
+    try{ await navigator.share(payload); }catch(_){/* user cancelled */}
+  } else if (!files.length && navigator.share){
+    doneMsg.textContent = "Your phone's share menu opened — choose your email or Teams app and send to " + CONFIG.emailTo + ".";
+    try{ await navigator.share({title:subject, text:report}); }catch(_){}
+  } else {
+    // desktop / unsupported: mailto for text, download photos
+    doneMsg.textContent = files.length
+      ? "Email draft opened with the report text. Photos can't attach automatically on this device — they've been downloaded, please attach them to the email before sending."
+      : "Email draft opened with the report text — just press Send.";
+    files.forEach((f,i)=>{
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(f);
+      a.download = "shine_photo_"+(i+1)+".jpg";
+      a.click();
+      setTimeout(()=>URL.revokeObjectURL(a.href), 5000);
+    });
+    location.href = "mailto:" + encodeURIComponent(CONFIG.emailTo) +
+      "?subject=" + encodeURIComponent(subject) +
+      "&body=" + encodeURIComponent(report);
+  }
+}
+document.getElementById("shareAgainBtn").onclick = sendShare;
+
+document.getElementById("copyBtn").onclick = async (e)=>{
+  try{
+    await navigator.clipboard.writeText(document.getElementById("reportOut").textContent);
+    e.target.textContent = "Copied ✓";
+    setTimeout(()=>e.target.textContent="Copy report text",1500);
+  }catch(_){ e.target.textContent = "Select & copy the text above"; }
+};
+
+// ---------- entries ----------
+function renderEntries(){
+  const list = document.getElementById("entryList");
+  list.innerHTML = "";
+  let log = [];
+  try{ log = JSON.parse(localStorage.getItem("shine_log")||"[]"); }catch(_){}
+  const today = new Date().toDateString();
+  const todays = log.filter(e => new Date(e.t).toDateString() === today).reverse();
+  if (!todays.length){
+    list.innerHTML = '<div class="empty">No entries submitted from this device today.</div>';
+    return;
+  }
+  todays.forEach(e=>{
+    const d = document.createElement("div");
+    d.className = "card entry";
+    d.innerHTML = '<div class="e1">'+e.cat+' · '+e.area+'</div>'+
+      '<div class="e2">'+new Date(e.t).toLocaleTimeString()+' · Emp '+e.emp+
+      ' · '+e.no+' issue(s) · '+e.photos+' photo(s)</div>';
+    list.appendChild(d);
+  });
+}
+</script>
+</body>
+</html>
