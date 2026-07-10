@@ -9,32 +9,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --pri:#0A2868;
-    --pri-dark:#061a45;
-    --pri-light:#e7ecf6;
-    --ink:#20262b;
-    --paper:#f2f5f5;
-    --card:#ffffff;
-    --line:#d7dee0;
-    --muted:#5f6b70;
-    --ok:#1f9d55;
-    --bad:#d64545;
-    --radius:14px;
+    --pri:#0A2868; --pri-dark:#061a45; --pri-light:#e7ecf6;
+    --ink:#20262b; --paper:#f2f5f5; --card:#ffffff; --line:#d7dee0;
+    --muted:#5f6b70; --ok:#1f9d55; --bad:#d64545; --radius:14px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{-webkit-text-size-adjust:100%}
   body{font-family:'Archivo',system-ui,-apple-system,sans-serif;background:var(--paper);color:var(--ink);min-height:100vh}
-  .topbar{
-    background:var(--pri);color:#fff;
-    padding:14px 16px;padding-top:calc(14px + env(safe-area-inset-top));
-    display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:10;
-    box-shadow:0 2px 6px rgba(0,0,0,.12);
-  }
+  .topbar{background:var(--pri);color:#fff;padding:14px 16px;
+    padding-top:calc(14px + env(safe-area-inset-top));display:flex;align-items:center;gap:12px;
+    position:sticky;top:0;z-index:10;box-shadow:0 2px 6px rgba(0,0,0,.12)}
   .backbtn{background:rgba(255,255,255,.15);border:none;color:#fff;width:38px;height:38px;
-           border-radius:50%;font-size:1.2rem;cursor:pointer;flex:0 0 auto;display:none}
-  .brand{flex:1;min-width:0;display:flex;align-items:center;gap:10px}
-  .brand img{height:32px;max-width:120px;object-fit:contain;display:none}
-  .brand .txt{min-width:0}
+    border-radius:50%;font-size:1.2rem;cursor:pointer;flex:0 0 auto;display:none}
+  .brand{flex:1;min-width:0}
   .brand .co{font-weight:800;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;opacity:.85}
   .brand .ttl{font-weight:700;font-size:1.05rem;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   main{max-width:640px;margin:0 auto;padding:18px 16px 40px}
@@ -42,34 +29,31 @@
   .screen.show{display:block;animation:fade .18s ease}
   @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
   .hero{background:linear-gradient(160deg,var(--pri) 0%,var(--pri-dark) 100%);color:#fff;
-        border-radius:var(--radius);padding:28px 22px;margin-bottom:18px}
-  .hero h2{font-size:1.5rem;font-weight:800;line-height:1.25;margin-bottom:6px}
+    border-radius:var(--radius);padding:26px 22px;margin-bottom:18px}
+  .hero h2{font-size:1.45rem;font-weight:800;line-height:1.25;margin-bottom:6px}
   .hero p{opacity:.85;font-size:.9rem}
   .menu{display:flex;flex-direction:column;gap:12px}
   .menubtn{display:flex;align-items:center;justify-content:space-between;font:inherit;font-weight:700;
-           font-size:1.05rem;background:var(--card);color:var(--pri);border:1.5px solid var(--line);
-           border-radius:var(--radius);padding:18px 20px;cursor:pointer;min-height:60px;
-           transition:transform .06s ease}
+    font-size:1.05rem;background:var(--card);color:var(--pri);border:1.5px solid var(--line);
+    border-radius:var(--radius);padding:18px 20px;cursor:pointer;min-height:60px}
   .menubtn:active{transform:scale(.98)}
-  .menubtn .arrow{font-weight:800}
   .menubtn.primary{background:var(--pri);color:#fff;border-color:var(--pri)}
-  .prompt{font-weight:700;font-size:1.15rem;margin:4px 2px 14px}
+  .prompt{font-weight:700;font-size:1.15rem;margin:4px 2px 6px}
+  .crumb{font-size:.78rem;color:var(--muted);margin:0 2px 14px}
   .catbtn{display:block;width:100%;font:inherit;font-weight:700;font-size:1.05rem;background:var(--card);
-          color:var(--pri);border:1.5px solid var(--line);border-radius:var(--radius);
-          padding:22px 16px;margin-bottom:10px;cursor:pointer;text-align:center;transition:transform .06s ease}
+    color:var(--pri);border:1.5px solid var(--line);border-radius:var(--radius);
+    padding:22px 16px;margin-bottom:10px;cursor:pointer;text-align:center}
   .catbtn:active{transform:scale(.98)}
   .catbtn small{display:block;color:var(--muted);font-weight:500;font-size:.8rem;margin-top:4px}
   .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
-        padding:14px;margin-bottom:10px;box-shadow:0 1px 2px rgba(32,38,43,.04)}
+    padding:14px;margin-bottom:10px;box-shadow:0 1px 2px rgba(32,38,43,.04)}
   label.fl{display:block;font-weight:700;font-size:.8rem;color:var(--pri);text-transform:uppercase;
-           letter-spacing:.06em;margin-bottom:6px}
+    letter-spacing:.06em;margin-bottom:6px}
   label.fl .req{color:var(--bad)}
-  input[type=text], textarea, select{width:100%;font:inherit;font-size:1rem;padding:12px;
+  input[type=text], input[type=date], textarea{width:100%;font:inherit;font-size:1rem;padding:12px;
     border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
-  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--pri);
-    box-shadow:0 0 0 3px rgba(10,40,104,.15)}
-  input[readonly]{background:var(--pri-light);font-weight:600}
-  textarea{resize:vertical;min-height:80px}
+  input:focus,textarea:focus{outline:none;border-color:var(--pri);box-shadow:0 0 0 3px rgba(10,40,104,.15)}
+  textarea{resize:vertical;min-height:70px}
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   @media(max-width:420px){.row2{grid-template-columns:1fr}}
   .toggle{display:grid;grid-template-columns:1fr 1fr;gap:6px}
@@ -77,21 +61,15 @@
     border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--muted);cursor:pointer}
   .toggle button.on{background:var(--pri);border-color:var(--pri);color:#fff}
   .sec{font-weight:800;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pri);
-       margin:20px 2px 10px;display:flex;align-items:center;gap:10px}
+    margin:20px 2px 10px;display:flex;align-items:center;gap:10px}
   .sec::after{content:"";flex:1;height:2px;background:var(--line)}
-  .qtext{font-weight:600;font-size:.98rem;line-height:1.45;margin-bottom:10px}
+  .qtext{font-weight:600;font-size:.96rem;line-height:1.5;margin-bottom:10px}
   .qnum{color:var(--pri);font-weight:800;margin-right:4px}
   .yn{display:grid;grid-template-columns:1fr 1fr;gap:6px}
   .yn button{font:inherit;font-weight:700;font-size:.95rem;padding:12px 0;min-height:46px;
-    border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--muted);cursor:pointer;
-    transition:transform .06s ease}
-  .yn button:active{transform:scale(.97)}
+    border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--muted);cursor:pointer}
   .yn button.yes.on{background:var(--ok);border-color:var(--ok);color:#fff}
   .yn button.no.on{background:var(--bad);border-color:var(--bad);color:#fff}
-  .opts{display:flex;flex-wrap:wrap;gap:6px}
-  .opts button{font:inherit;font-weight:600;font-size:.9rem;padding:11px 16px;min-height:44px;
-    border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--muted);cursor:pointer}
-  .opts button.on{background:var(--pri);border-color:var(--pri);color:#fff}
   .qcomment{display:none;margin-top:8px}
   .qcomment.show{display:block}
   .photobar{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
@@ -101,14 +79,6 @@
   .thumb img{width:100%;height:100%;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
   .thumb .rm{position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;
     border:none;background:var(--bad);color:#fff;font-size:.75rem;font-weight:800;cursor:pointer;line-height:1}
-  .filelist{margin-top:10px;display:flex;flex-direction:column;gap:6px}
-  .filechip{display:flex;align-items:center;gap:8px;background:var(--pri-light);color:var(--pri);
-    font-weight:600;font-size:.85rem;padding:8px 10px;border-radius:8px}
-  .filechip span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .filechip button{border:none;background:var(--pri);color:#fff;width:22px;height:22px;border-radius:50%;
-    font-size:.65rem;font-weight:800;cursor:pointer;flex:0 0 auto}
-  .attachbtn{font:inherit;font-weight:700;font-size:.9rem;background:none;border:1.5px dashed var(--pri);
-    color:var(--pri);border-radius:10px;padding:11px 16px;cursor:pointer;width:100%;margin-top:10px}
   .submit{width:100%;font:inherit;font-weight:800;font-size:1.1rem;padding:16px 0;min-height:54px;
     border:none;border-radius:12px;margin-top:16px;background:#c4ccce;color:#7b8589;cursor:not-allowed}
   .submit.ready{background:var(--pri);color:#fff;cursor:pointer}
@@ -117,21 +87,22 @@
   .entry .e1{font-weight:700}
   .entry .e2{font-size:.85rem;color:var(--muted);margin-top:2px}
   .empty{color:var(--muted);text-align:center;padding:30px 0;font-size:.95rem}
-  .dnote{font-size:.78rem;color:var(--muted);margin-bottom:10px;line-height:1.4}
-  .legend{display:flex;gap:14px;margin-bottom:10px;font-size:.8rem;font-weight:600}
+  .dnote{font-size:.78rem;color:var(--muted);margin-bottom:12px;line-height:1.4}
+  .legend{display:flex;gap:14px;margin-bottom:12px;font-size:.8rem;font-weight:600}
   .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
-  .dgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:16px}
-  .dtile{border-radius:10px;padding:12px 10px;color:#fff;font-weight:700;font-size:.85rem;
-         line-height:1.3;min-height:60px}
+  .dsec{font-weight:800;font-size:1rem;margin:18px 2px 10px;text-decoration:underline}
+  .dgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+  .dtile{border-radius:10px;padding:12px 10px;color:#fff;font-weight:700;font-size:.8rem;
+    line-height:1.3;min-height:56px}
   .dtile.ok{background:var(--ok)}
   .dtile.miss{background:var(--bad)}
-  .dtile small{display:block;font-weight:500;font-size:.72rem;opacity:.9;margin-top:4px}
+  .dtile small{display:block;font-weight:500;font-size:.68rem;opacity:.9;margin-top:4px}
   .done-icon{width:72px;height:72px;border-radius:50%;background:var(--ok);color:#fff;font-size:2.2rem;
     display:flex;align-items:center;justify-content:center;margin:20px auto 14px}
   .done-h{font-weight:800;font-size:1.3rem;text-align:center;margin-bottom:8px}
   .done-p{color:var(--muted);text-align:center;font-size:.92rem;line-height:1.5;margin-bottom:16px}
   pre.report{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px;
-    font-size:.78rem;white-space:pre-wrap;word-break:break-word;max-height:38vh;overflow:auto;margin-bottom:12px}
+    font-size:.75rem;white-space:pre-wrap;word-break:break-word;max-height:36vh;overflow:auto;margin-bottom:12px}
   .btn{display:block;width:100%;font:inherit;font-weight:700;font-size:1rem;padding:14px;
     border-radius:12px;border:1.5px solid var(--pri);background:var(--pri);color:#fff;cursor:pointer;
     margin-bottom:10px;min-height:50px}
@@ -145,103 +116,136 @@
 <div class="topbar">
   <button class="backbtn" id="backBtn" aria-label="Back">‹</button>
   <div class="brand">
-    <img id="logoImg" alt="">
-    <div class="txt">
-      <div class="co" id="coName"></div>
-      <div class="ttl" id="appTitle"></div>
-    </div>
+    <div class="co">DSV</div>
+    <div class="ttl">5S Shine Plan</div>
   </div>
 </div>
 
 <main>
-  <section class="screen" id="scr-home">
-    <div class="hero"><h2 id="heroTitle"></h2><p id="heroDate"></p></div>
-    <div class="menu" id="homeMenu"></div>
+  <!-- PAGE 1 · SITE + BU -->
+  <section class="screen show" id="scr-site">
+    <div class="hero">
+      <h2>5S Shine Plan</h2>
+      <p id="heroDate"></p>
+    </div>
+    <div class="card">
+      <label class="fl" for="siteInput">Choose Site <span class="req">*</span></label>
+      <input type="text" id="siteInput" list="siteList" placeholder="Type to search site" autocomplete="off">
+      <datalist id="siteList"></datalist>
+    </div>
+    <div class="card">
+      <label class="fl" for="buInput">Choose BU <span class="req">*</span></label>
+      <input type="text" id="buInput" list="buList" placeholder="Select a site first" autocomplete="off" disabled>
+      <datalist id="buList"></datalist>
+    </div>
+    <button class="submit" id="siteContinue" disabled>Continue</button>
   </section>
 
-  <section class="screen" id="scr-loc">
-    <div class="prompt">Select your area</div>
-    <div id="locList"></div>
+  <!-- PAGE 2 · MAIN MENU -->
+  <section class="screen" id="scr-menu">
+    <div class="prompt" id="menuTitle"></div>
+    <div class="crumb" id="menuCrumb"></div>
+    <div class="menu">
+      <button class="menubtn primary" id="mNewForm">New Form <span>→</span></button>
+      <button class="menubtn" id="mEntries">View Entries <span>→</span></button>
+      <button class="menubtn" id="mDaily">Daily Summary <span>→</span></button>
+      <button class="menubtn" id="mSup">Sup Summary <span>→</span></button>
+    </div>
   </section>
 
+  <!-- PAGE 3 · CATEGORY -->
   <section class="screen" id="scr-cat">
-    <div class="prompt">Please select a category</div>
+    <div class="prompt">Choose Category</div>
+    <div class="crumb" id="catCrumb"></div>
     <div id="catList"></div>
   </section>
 
+  <!-- PAGE 4 · FORM -->
   <section class="screen" id="scr-form">
     <div class="prompt" id="formTitle"></div>
+    <div class="crumb" id="formCrumb"></div>
+    <div class="card">
+      <label class="fl">Employee ID <span class="req">*</span></label>
+      <input type="text" id="empId" placeholder="e.g. CL12345" autocomplete="off">
+    </div>
+    <div class="card">
+      <label class="fl">Area <span class="req">*</span></label>
+      <input type="text" id="areaInput" list="areaList" placeholder="Type to search area" autocomplete="off">
+      <datalist id="areaList"></datalist>
+    </div>
     <div class="card">
       <div class="row2">
         <div>
-          <label class="fl">Employee ID <span class="req">*</span></label>
-          <input type="text" id="empId" placeholder="e.g. SG12345" autocomplete="off">
+          <label class="fl">Date <span class="req">*</span></label>
+          <input type="date" id="dateInput">
         </div>
         <div>
-          <label class="fl">Area Responsible</label>
-          <input type="text" id="areaResp" placeholder="Name (optional)" autocomplete="off">
+          <label class="fl">Shift <span class="req">*</span></label>
+          <div class="toggle" id="shiftToggle">
+            <button type="button" data-v="Day">☀ Day</button>
+            <button type="button" data-v="Night">☾ Night</button>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="card">
-      <label class="fl">Area / Location <span class="req">*</span></label>
-      <input type="text" id="areaLoc" list="areaOptions" placeholder="Select or type" autocomplete="off">
-      <datalist id="areaOptions"></datalist>
-    </div>
-    <div class="card">
-      <label class="fl">Shift <span class="req">*</span></label>
-      <div class="toggle" id="shiftToggle">
-        <button type="button" data-v="Day">☀ Day</button>
-        <button type="button" data-v="Night">☾ Night</button>
       </div>
     </div>
     <div class="sec">Checklist</div>
     <div id="qList"></div>
-    <div id="photoSec">
-      <div class="sec">Photos</div>
-      <div class="card">
-        <label class="fl">Attach photos (camera or gallery)</label>
-        <div class="photobar" id="photoBar">
-          <button type="button" class="addphoto" id="addPhotoBtn" aria-label="Add photo">＋</button>
-        </div>
-        <input type="file" id="photoInput" accept="image/*" capture="environment" multiple hidden>
-      </div>
-    </div>
-    <div id="fileSec">
-      <div class="sec">Files</div>
-      <div class="card">
-        <label class="fl">Attach documents (optional)</label>
-        <div class="filelist" id="fileList"></div>
-        <button type="button" class="attachbtn" id="addFileBtn">＋ Attach file</button>
-        <input type="file" id="fileInput" multiple hidden>
-      </div>
-    </div>
     <div class="sec">Remarks</div>
     <div class="card">
-      <textarea id="remarks" placeholder="Any other observations (optional)"></textarea>
+      <input type="text" id="remarks" placeholder="N/A" autocomplete="off">
+    </div>
+    <div class="sec">Attachments</div>
+    <div class="card">
+      <label class="fl">Take photo / upload photo</label>
+      <div class="photobar" id="photoBar">
+        <button type="button" class="addphoto" id="addPhotoBtn" aria-label="Add photo">＋</button>
+      </div>
+      <input type="file" id="photoInput" accept="image/*" capture="environment" multiple hidden>
     </div>
     <button class="submit" id="submitBtn" disabled>Complete required fields</button>
     <div class="hint" id="submitHint"></div>
   </section>
 
+  <!-- VIEW ENTRIES -->
   <section class="screen" id="scr-entries">
-    <div class="prompt">Today's entries on this device</div>
+    <div class="prompt">View Entries</div>
+    <div class="crumb" id="entriesCrumb"></div>
+    <div class="dnote">Entries submitted from this device. The full team record is in the SharePoint list.</div>
     <div id="entryList"></div>
   </section>
 
-  <section class="screen" id="scr-dash">
-    <div class="prompt">Dashboard — <span id="dashDate"></span></div>
-    <div class="dnote">Shows submissions made from THIS device only. The full team view is in your SharePoint list.</div>
+  <!-- DAILY SUMMARY -->
+  <section class="screen" id="scr-daily">
+    <div class="prompt">Shine Plan Daily Summary</div>
+    <div class="card">
+      <div class="row2">
+        <div>
+          <label class="fl">Date</label>
+          <input type="date" id="dailyDate">
+        </div>
+        <div>
+          <label class="fl">Search area</label>
+          <input type="text" id="dailySearch" placeholder="Search Area" autocomplete="off">
+        </div>
+      </div>
+    </div>
     <div class="legend">
-      <span><i style="background:var(--ok)"></i>Checked today</span>
+      <span><i style="background:var(--ok)"></i>Checked</span>
       <span><i style="background:var(--bad)"></i>Not checked</span>
     </div>
-    <div class="dgrid" id="dashGrid"></div>
-    <div class="sec">Submission log</div>
-    <div id="dashLog"></div>
-    <button class="btn ghost" id="csvBtn">Export log to Excel (CSV)</button>
+    <div class="dnote">Shows submissions made from THIS device only. The full team view comes from the SharePoint list.</div>
+    <div id="dailyWrap"></div>
   </section>
 
+  <!-- SUP SUMMARY -->
+  <section class="screen" id="scr-sup">
+    <div class="prompt">Sup Summary</div>
+    <div class="card">
+      <div class="empty">Coming soon — waiting for the PIC / backup logic to be confirmed.</div>
+    </div>
+  </section>
+
+  <!-- DONE -->
   <section class="screen" id="scr-done">
     <div class="done-icon">✓</div>
     <div class="done-h">Report ready to send</div>
@@ -254,253 +258,270 @@
 </main>
 
 <script>
-const CONFIG = {
-  "company": "DSV",
-  "appTitle": "Unit 2 · 5S Shine Plan",
-  "heroTitle": "Daily 5S Shine Check",
-  "themeColor": "#0A2868",
-  "logo": "data:image/png;base64,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",
-  "emailTo": "a448e6b7.DSVCorp.onmicrosoft.com@emea.teams.ms",
-  "emailSubject": "5S SHINE REPORT",
-  "flow": {
-    "locationPage": true,
-    "entriesBtn": true,
-    "dashboardBtn": true
-  },
-  "features": {
-    "photos": true,
-    "files": true
-  },
-  "areas": [
-    "Zone A",
-    "Zone B",
-    "Kitting Line 1",
-    "Packing",
-    "Inbound Dock",
-    "Outbound Dock"
+/* ============================================================
+   EDIT ME — all app data lives here
+============================================================ */
+var EMAIL_TO = "sg.sha.cl-bizsupport@dsv.com";
+var SUBJECT_PREFIX = "5S Shine Plan";
+
+/* Sites and their BUs */
+var SITES = {
+  "POU": ["POU"],
+  "CNC": ["CNC"],
+  "TIC": ["TIC"],
+  "Pioneer Walk": ["PW", "AMST", "MICRON", "LAMSP"],
+  "RedLion": ["FG"],
+  "RedLion 2": ["CW", "NSSC"],
+  "SLC": ["AGS"],
+  "SLC 3": ["SCC(FG)"],
+  "20 Tuas South": ["FG + IMPLANT"],
+  "Changi North 1": ["General"],
+  "Changi North 5": ["General"],
+  "Changi North 6": ["DYSON"]
+};
+
+/* Areas per category */
+var AREAS = {
+  "Functional Area": [
+    "1A Loading Bay","1A Staging","1B Export","1B Inbound Admin","1B Inbound Loading Bay",
+    "1B Inbound Station","1B Outbound Admin","1B Outbound Large Part Sorting","1B RVN",
+    "20TS - Unit 03-01 - Office 1","20TS - Unit 03-01 - Office 2",
+    "20TS - Unit 03-03 - Office Area, Part Audit Area & Inbound Staging Carton",
+    "2A Crate Processing","2A Final Prep","2A Large Part","2A Loading Bay","2A Office",
+    "2A Outbound Staging","4B IC","4B J2J/RTS","4B Kit Cell","4B One Cell/BO",
+    "4B Outbound Detrash Stn","4B Outbound Epick/ BO Stn","4B Outbound Kit Audit",
+    "4B QC Focals","4B Toting","9CS L1","9CS L2","9CS L3","9CS Loading Bay",
+    "CNC L1","CNC L3","FWD","POU INBOUND AREA","POU OUTBOUND AREA","RVC","SCC Office","TKM",
+    "Warehouse - Bay 01-14","Warehouse - Dock 01-14","Warehouse 1&2 MHE Charging Point"
   ],
-  "categories": [
-    {
-      "name": "Functional Area",
-      "note": "Offices, workstations, functional zones",
-      "questions": [
-        {
-          "text": "No irrelevant reference materials, documents, drawings, etc  没有无关的参考资料，文件，图纸等",
-          "type": "yesno",
-          "options": [],
-          "required": true
-        },
-        {
-          "text": "Confidential documents are disposed into designated bin  机密文件放入指定的垃圾箱",
-          "type": "yesno",
-          "options": [],
-          "required": true
-        },
-        {
-          "text": "Lighting is in working condition  照明灯处于工作状态",
-          "type": "yesno",
-          "options": [],
-          "required": true
-        }
-      ]
-    },
-    {
-      "name": "Floor Storage",
-      "note": "Floor stacking and staging areas",
-      "questions": [
-        {
-          "text": "Pallets are stacked within marked boundaries  托盘堆放在标线范围内",
-          "type": "yesno",
-          "options": [],
-          "required": true
-        },
-        {
-          "text": "Aisles are clear of obstruction  通道畅通无阻",
-          "type": "yesno",
-          "options": [],
-          "required": true
-        }
-      ]
-    },
-    {
-      "name": "Rack Storage",
-      "note": "Racking and high-bay areas",
-      "questions": [
-        {
-          "text": "Racks are free of dust and cobwebs  货架无灰尘和蜘蛛网",
-          "type": "yesno",
-          "options": [],
-          "required": true
-        },
-        {
-          "text": "Rack labels are clean and readable  货架标签干净可读",
-          "type": "yesno",
-          "options": [],
-          "required": true
-        }
-      ]
-    }
+  "Floor Storage": [
+    "15PW Unit 06-03 - Amat - O Floor Staging","15PW Unit 06-03 - AMST Floor Storage",
+    "1A Storage","20TS - UNIT 03-03 A1 to A7 & G1 to G7","CNC L1","CNC L3",
+    "POU INBOUND AREA","POU OUTBOUND AREA",
+    "Warehouse 1 - L01-05","Warehouse 1 - M01-05","Warehouse 1 - N01-05","Warehouse 1 - O01-05",
+    "Warehouse 1 - P01-05","Warehouse 1 - Q04-06","Warehouse 1 - R04-06","Warehouse 1 - S04-06",
+    "Warehouse 2 - A01-06","Warehouse 2 - A21-26","Warehouse 2 - B01-05","Warehouse 2 - C01-05",
+    "Warehouse 2 - D01-05","Warehouse 2 - E01-05","Warehouse 2 - F05-06","Warehouse 2 - H05-06"
+  ],
+  "Rack Storage": [
+    "15PW Unit 06-03 Shelving Area / Aisle 50","1B Inbound Storage","1B Storage 31 - 34",
+    "1B Storage 35 - 38","20TS - Unit 03-03 6RKA, Racking & Loading","2A Racking 25 - 29",
+    "4A Storage 21 - 23","4A Storage 24 - 27","4A Storage 29 - 32","4A Storage 33 - 36",
+    "4B Storage 25 - 28","4B Storage 29 - 32","4B Storage 33 - 36","4B Storage 37 - 39",
+    "4B Storage 40 - 42","4B Storage 43 - 44","4B Storage 71 - 73","4B Storage 74 - 76",
+    "4B Storage 81 - 84","CNC L1","POU INBOUND AREA","POU OUTBOUND AREA",
+    "Warehouse 1 - Racking Area","Warehouse 2 - Racking Area"
   ]
 };
 
-function shade(hex,p){
-  var n = hex.replace("#","");
-  if (n.length===3){ n = n.split("").map(function(c){return c+c;}).join(""); }
-  var r=parseInt(n.substr(0,2),16), g=parseInt(n.substr(2,2),16), b=parseInt(n.substr(4,2),16);
-  var t = p<0 ? 0 : 255, q = Math.abs(p);
-  r=Math.round((t-r)*q)+r; g=Math.round((t-g)*q)+g; b=Math.round((t-b)*q)+b;
-  return "rgb("+r+","+g+","+b+")";
-}
-(function(){
-  var c = CONFIG.themeColor || "#0A2868";
-  var root = document.documentElement.style;
-  root.setProperty("--pri", c);
-  root.setProperty("--pri-dark", shade(c,-0.35));
-  root.setProperty("--pri-light", shade(c,0.92));
-})();
+/* Questions per category (all Yes/No) */
+var QUESTIONS = {
+  "Functional Area": [
+    "No irrelevant reference materials, documents, drawings, etc 没有无关的参考资料，文件，图纸等",
+    "Confidential documents are disposed into designated bin 机密文件放入指定的垃圾箱",
+    "All tools and equipment are stored in a fixed place with label 所有工具和设备均存放在有标签的固定位置",
+    "Cabinets, shelves and files are labelled for identification 橱柜，架子和文件都标有识别标签",
+    "Safety equipment easily accessible and in good condition 安全设备易于接近且状况良好",
+    "Walkways and aisles are cleared 清理人行道和过道",
+    "Floor lines are visible 地板线可见",
+    "Shelves and cabinets are kept clean and in good condition 架子和柜子要保持清洁并保持良好状态",
+    "Equipment and tools are kept clean and in good condition 设备和工具保持清洁且状态良好",
+    "Desks and other furniture are kept clean 书桌和其他家具保持清洁",
+    "Lighting is in working condition 照明灯处于工作状态",
+    "To be picture and Signage are available 提供图片和标牌"
+  ],
+  "Floor Storage": [
+    "No empty pallets or other wastes 没有空托盘或其他不需要的包装",
+    "No damage crate, tilt and shock watch activated 没有损坏箱子，倾斜和震动表被启动",
+    "Free access to firefighter access, fire hose reel or fire extinguisher 没有阻碍通往消防员通道，消防水带卷盘或灭火器",
+    "Location labels are in good condition 位置标签状况良好",
+    "Floor lines are visible 可以看到地板线",
+    "Crates stacked safely 箱子安全堆放",
+    "Putaway or other relevant labels pasted on crate are visible 粘贴在木箱上的入库标签或其他相关标签清楚可见",
+    "Walkways and aisles are cleared 人行道和过道无阻隔",
+    "Fire equipment are in good condition 安全设备状况良好",
+    "Lighting is sufficient 照明足够",
+    "Pest control mechanism in place and effective 害虫控制机制存在且有效",
+    "Goods are kept clean 货物保持清洁",
+    "To be picture and Signage are available 工作站上找到“正确的标准图片”和标牌",
+    "No overflow of goods in location 位置无货物溢出"
+  ],
+  "Rack Storage": [
+    "No empty cartons or other wastes 没有空纸箱或其他不需要的包装",
+    "No damage pallet and carton 无损坏托盘和纸箱",
+    "Free access to firefighter access, fire hose reel or fire extinguisher 没有阻碍通往消防员通道，消防水带卷盘或灭火器",
+    "Location labels are in good condition 位置标签状况良好",
+    "No damage racking or shelve 无损坏架子或货架",
+    "Fragile parts store in good condition 易碎物件存放状况良好",
+    "Walkways and aisles are cleared 人行道和过道无阻隔",
+    "Parts or box not protruding from location or pallet 产品或盒子未从位置或货盘突出",
+    "Rack aisles lines are visible 可以看到货架走道线",
+    "Goods that exceed man height are shrink wrap 超过了人身高的货物有收缩包装",
+    "Lighting is sufficient 照明足够",
+    "Pest control mechanism in place and effective 害虫控制机制存在且有效",
+    "Goods are kept clean 货物保持清洁",
+    "Loose parts are pack in plastic bag or box 松散的零件装在塑料袋或盒子里",
+    "To be picture and Signage are available 工作站上找到“正确的标准图片”和标牌"
+  ]
+};
 
-const state = { area:null, category:null, answers:[], comments:[], shift:null, photos:[], docs:[] };
-let lastShare = null;
+/* Category descriptions on the category page */
+var CAT_NOTES = {
+  "Functional Area": "Offices, workstations, functional zones",
+  "Floor Storage": "Floor stacking and staging areas",
+  "Rack Storage": "Racking and high-bay areas"
+};
+/* ================= end of editable part ==================== */
 
-document.getElementById("coName").textContent = CONFIG.company;
-document.getElementById("appTitle").textContent = CONFIG.appTitle;
-document.getElementById("heroTitle").textContent = CONFIG.heroTitle;
-if (CONFIG.logo){
-  var li = document.getElementById("logoImg");
-  li.src = CONFIG.logo; li.style.display = "block";
+
+var state = {
+  site:"", bu:"", cat:"",
+  answers:[], comments:[], shift:null, photos:[]
+};
+var lastShare = null;
+var current = "site";
+
+function todayISO(){
+  var d = new Date();
+  var m = String(d.getMonth()+1).padStart(2,"0");
+  var day = String(d.getDate()).padStart(2,"0");
+  return d.getFullYear()+"-"+m+"-"+day;
 }
-const now = new Date();
 document.getElementById("heroDate").textContent =
-  now.toLocaleDateString(undefined,{weekday:"long", day:"2-digit", month:"long", year:"numeric"});
+  new Date().toLocaleDateString(undefined,{weekday:"long", day:"2-digit", month:"long", year:"numeric"});
 
-const screens = ["home","loc","cat","form","entries","dash","done"];
-let current = "home";
-function go(name){
-  screens.forEach(function(s){document.getElementById("scr-"+s).classList.toggle("show", s===name);});
-  document.getElementById("backBtn").style.display = (name==="home") ? "none" : "block";
+var SCREENS = ["site","menu","cat","form","entries","daily","sup","done"];
+function show(name){
+  SCREENS.forEach(function(s){document.getElementById("scr-"+s).classList.toggle("show", s===name);});
+  document.getElementById("backBtn").style.display = name==="site" ? "none" : "block";
   current = name;
   window.scrollTo(0,0);
 }
 document.getElementById("backBtn").onclick = function(){
-  if (current==="form") go("cat");
-  else if (current==="cat" && CONFIG.flow.locationPage) go("loc");
-  else go("home");
+  if (current==="menu") show("site");
+  else if (current==="cat") show("menu");
+  else if (current==="form") show("cat");
+  else if (current==="entries" || current==="daily" || current==="sup") show("menu");
+  else show("site");
 };
-go("home");
 
-/* home menu */
+/* ── Page 1: Site + BU ── */
+var siteInput = document.getElementById("siteInput");
+var buInput = document.getElementById("buInput");
+var siteContinue = document.getElementById("siteContinue");
 (function(){
-  var m = document.getElementById("homeMenu");
-  function mb(label, cls, fn){
-    var b = document.createElement("button");
-    b.className = "menubtn" + (cls ? " "+cls : "");
-    b.innerHTML = label + ' <span class="arrow">→</span>';
-    b.onclick = fn;
-    m.appendChild(b);
-  }
-  mb("New Check","primary",function(){ CONFIG.flow.locationPage ? go("loc") : go("cat"); });
-  if (CONFIG.flow.entriesBtn) mb("Today's Entries","",function(){ renderEntries(); go("entries"); });
-  if (CONFIG.flow.dashboardBtn) mb("Dashboard","",function(){ renderDash(); go("dash"); });
+  var dl = document.getElementById("siteList");
+  Object.keys(SITES).forEach(function(s){
+    var o = document.createElement("option"); o.value = s; dl.appendChild(o);
+  });
 })();
+function siteRefresh(){
+  var s = siteInput.value.trim();
+  var valid = SITES.hasOwnProperty(s);
+  buInput.disabled = !valid;
+  buInput.placeholder = valid ? "Type to search BU" : "Select a site first";
+  var dl = document.getElementById("buList");
+  dl.innerHTML = "";
+  if (valid){
+    SITES[s].forEach(function(b){
+      var o = document.createElement("option"); o.value = b; dl.appendChild(o);
+    });
+    if (SITES[s].indexOf(buInput.value.trim()) < 0) buInput.value = SITES[s].length===1 ? SITES[s][0] : "";
+  } else buInput.value = "";
+  var buOk = valid && SITES[s].indexOf(buInput.value.trim()) >= 0;
+  siteContinue.disabled = !buOk;
+  siteContinue.classList.toggle("ready", buOk);
+  siteContinue.textContent = buOk ? "Continue" : "Choose site and BU";
+}
+siteInput.addEventListener("input", siteRefresh);
+buInput.addEventListener("input", siteRefresh);
+siteRefresh();
+siteContinue.onclick = function(){
+  if (siteContinue.disabled) return;
+  state.site = siteInput.value.trim();
+  state.bu = buInput.value.trim();
+  document.getElementById("menuTitle").textContent = state.site + " · " + state.bu;
+  document.getElementById("menuCrumb").textContent = "Site: " + state.site + "   ·   BU: " + state.bu;
+  show("menu");
+};
 
-/* location page */
+/* ── Page 2: Menu ── */
+document.getElementById("mNewForm").onclick = function(){
+  document.getElementById("catCrumb").textContent = state.site + " · " + state.bu;
+  show("cat");
+};
+document.getElementById("mEntries").onclick = function(){ renderEntries(); show("entries"); };
+document.getElementById("mDaily").onclick = function(){
+  document.getElementById("dailyDate").value = todayISO();
+  renderDaily(); show("daily");
+};
+document.getElementById("mSup").onclick = function(){ show("sup"); };
+
+/* ── Page 3: Category ── */
 (function(){
-  var l = document.getElementById("locList");
-  CONFIG.areas.forEach(function(a){
+  var wrap = document.getElementById("catList");
+  Object.keys(QUESTIONS).forEach(function(cat){
     var b = document.createElement("button");
     b.className = "catbtn";
-    b.textContent = a;
-    b.onclick = function(){ state.area = a; go("cat"); };
-    l.appendChild(b);
+    var s = document.createElement("small");
+    s.textContent = CAT_NOTES[cat] || "";
+    b.textContent = cat;
+    b.appendChild(s);
+    b.onclick = function(){ startForm(cat); };
+    wrap.appendChild(b);
   });
 })();
 
-/* categories */
-const catList = document.getElementById("catList");
-CONFIG.categories.forEach(function(cat){
-  var b = document.createElement("button");
-  b.className = "catbtn";
-  var s = document.createElement("small");
-  s.textContent = cat.note || "";
-  b.textContent = cat.name;
-  b.appendChild(s);
-  b.onclick = function(){ startForm(cat); };
-  catList.appendChild(b);
-});
-
-const dl = document.getElementById("areaOptions");
-CONFIG.areas.forEach(function(a){
-  var o = document.createElement("option"); o.value = a; dl.appendChild(o);
-});
-
-if (!CONFIG.features.photos) document.getElementById("photoSec").style.display = "none";
-if (!CONFIG.features.files) document.getElementById("fileSec").style.display = "none";
-
-const qList = document.getElementById("qList");
+/* ── Page 4: Form ── */
+var qList = document.getElementById("qList");
 function startForm(cat){
-  state.category = cat;
-  state.answers = cat.questions.map(function(){return null;});
-  state.comments = cat.questions.map(function(){return "";});
+  state.cat = cat;
+  var qs = QUESTIONS[cat];
+  state.answers = qs.map(function(){return null;});
+  state.comments = qs.map(function(){return "";});
   state.shift = null;
   state.photos.forEach(function(p){URL.revokeObjectURL(p.url);});
-  state.photos = []; state.docs = [];
-  document.getElementById("formTitle").textContent = cat.name;
+  state.photos = [];
+  document.getElementById("formTitle").textContent = cat;
+  document.getElementById("formCrumb").textContent = state.site + " · " + state.bu;
   document.getElementById("empId").value = "";
-  document.getElementById("areaResp").value = "";
-  var al = document.getElementById("areaLoc");
-  if (CONFIG.flow.locationPage){ al.value = state.area || ""; al.readOnly = true; }
-  else { al.value = ""; al.readOnly = false; }
+  document.getElementById("areaInput").value = "";
+  document.getElementById("dateInput").value = todayISO();
   document.getElementById("remarks").value = "";
   document.querySelectorAll("#shiftToggle button").forEach(function(b){b.classList.remove("on");});
-  renderPhotos(); renderFiles();
+  renderPhotos();
+
+  var dl = document.getElementById("areaList");
+  dl.innerHTML = "";
+  AREAS[cat].forEach(function(a){
+    var o = document.createElement("option"); o.value = a; dl.appendChild(o);
+  });
 
   qList.innerHTML = "";
-  cat.questions.forEach(function(q,i){
+  qs.forEach(function(q,i){
     var card = document.createElement("div");
     card.className = "card";
     var qt = document.createElement("div");
     qt.className = "qtext";
     var num = document.createElement("span");
     num.className = "qnum"; num.textContent = String(i+1).padStart(2,"0");
-    qt.appendChild(num); qt.append(q.text + (q.required ? " *" : ""));
+    qt.appendChild(num); qt.append(q + " *");
     card.appendChild(qt);
 
-    if (q.type === "yesno"){
-      var yn = document.createElement("div"); yn.className = "yn";
-      var yes = document.createElement("button"); yes.type="button"; yes.className="yes"; yes.textContent="Yes";
-      var no  = document.createElement("button"); no.type="button";  no.className="no";  no.textContent="No";
-      yn.appendChild(yes); yn.appendChild(no); card.appendChild(yn);
-      var cbox = document.createElement("div"); cbox.className = "qcomment";
-      var ci = document.createElement("input"); ci.type="text"; ci.placeholder="Comment - what is the issue? (optional)";
-      ci.oninput = function(){ state.comments[i] = ci.value.trim(); };
-      cbox.appendChild(ci); card.appendChild(cbox);
-      yes.onclick = function(){ state.answers[i]="Yes"; yes.classList.add("on"); no.classList.remove("on"); cbox.classList.remove("show"); refresh(); };
-      no.onclick  = function(){ state.answers[i]="No";  no.classList.add("on");  yes.classList.remove("on"); cbox.classList.add("show"); refresh(); };
-    } else if (q.type === "choice"){
-      var op = document.createElement("div"); op.className = "opts";
-      (q.options||[]).forEach(function(o){
-        var b = document.createElement("button"); b.type="button"; b.textContent = o;
-        b.onclick = function(){
-          state.answers[i] = o;
-          op.querySelectorAll("button").forEach(function(x){x.classList.toggle("on", x===b);});
-          refresh();
-        };
-        op.appendChild(b);
-      });
-      card.appendChild(op);
-    } else if (q.type === "short"){
-      var si = document.createElement("input"); si.type="text"; si.placeholder="Your answer";
-      si.oninput = function(){ state.answers[i] = si.value; refresh(); };
-      card.appendChild(si);
-    } else {
-      var ta = document.createElement("textarea"); ta.placeholder="Your answer";
-      ta.oninput = function(){ state.answers[i] = ta.value; refresh(); };
-      card.appendChild(ta);
-    }
+    var yn = document.createElement("div"); yn.className = "yn";
+    var yes = document.createElement("button"); yes.type="button"; yes.className="yes"; yes.textContent="Yes";
+    var no  = document.createElement("button"); no.type="button";  no.className="no";  no.textContent="No";
+    yn.appendChild(yes); yn.appendChild(no); card.appendChild(yn);
+    var cbox = document.createElement("div"); cbox.className = "qcomment";
+    var ci = document.createElement("input"); ci.type="text"; ci.placeholder="Comment - what is the issue? (optional)";
+    ci.oninput = function(){ state.comments[i] = ci.value.trim(); };
+    cbox.appendChild(ci); card.appendChild(cbox);
+    yes.onclick = function(){ state.answers[i]="Yes"; yes.classList.add("on"); no.classList.remove("on"); cbox.classList.remove("show"); refresh(); };
+    no.onclick  = function(){ state.answers[i]="No";  no.classList.add("on");  yes.classList.remove("on"); cbox.classList.add("show"); refresh(); };
     qList.appendChild(card);
   });
   refresh();
-  go("form");
+  show("form");
 }
 
 document.querySelectorAll("#shiftToggle button").forEach(function(b){
@@ -511,10 +532,10 @@ document.querySelectorAll("#shiftToggle button").forEach(function(b){
   };
 });
 document.getElementById("empId").addEventListener("input", refresh);
-document.getElementById("areaLoc").addEventListener("input", refresh);
+document.getElementById("areaInput").addEventListener("input", refresh);
+document.getElementById("dateInput").addEventListener("input", refresh);
 
-/* photos */
-const photoInput = document.getElementById("photoInput");
+var photoInput = document.getElementById("photoInput");
 document.getElementById("addPhotoBtn").onclick = function(){ photoInput.click(); };
 photoInput.onchange = async function(){
   for (const f of photoInput.files){
@@ -555,84 +576,57 @@ function compressImage(file){
   });
 }
 
-/* files */
-const fileInput = document.getElementById("fileInput");
-document.getElementById("addFileBtn").onclick = function(){ fileInput.click(); };
-fileInput.onchange = function(){
-  for (const f of fileInput.files){ state.docs.push(f); }
-  fileInput.value = "";
-  renderFiles();
-};
-function renderFiles(){
-  var l = document.getElementById("fileList");
-  l.innerHTML = "";
-  state.docs.forEach(function(f,i){
-    var c = document.createElement("div"); c.className = "filechip";
-    var s = document.createElement("span"); s.textContent = f.name;
-    var x = document.createElement("button"); x.type="button"; x.textContent="✕";
-    x.onclick = function(){ state.docs.splice(i,1); renderFiles(); };
-    c.appendChild(s); c.appendChild(x);
-    l.appendChild(c);
-  });
-}
-
-/* validation */
-const submitBtn = document.getElementById("submitBtn");
+var submitBtn = document.getElementById("submitBtn");
 function refresh(){
-  if (!state.category) return;
+  if (!state.cat) return;
   var empOk  = document.getElementById("empId").value.trim() !== "";
-  var areaOk = document.getElementById("areaLoc").value.trim() !== "";
-  var qOk = state.answers.every(function(a,i){
-    var q = state.category.questions[i];
-    if (!q.required) return true;
-    return a !== null && String(a).trim() !== "";
-  });
-  var ready = empOk && areaOk && state.shift && qOk;
+  var areaOk = AREAS[state.cat].indexOf(document.getElementById("areaInput").value.trim()) >= 0;
+  var dateOk = document.getElementById("dateInput").value !== "";
+  var qOk = state.answers.every(function(a){ return a !== null; });
+  var ready = empOk && areaOk && dateOk && state.shift && qOk;
   submitBtn.disabled = !ready;
   submitBtn.classList.toggle("ready", ready);
-  submitBtn.textContent = ready ? "Submit report" : "Complete required fields";
-  document.getElementById("submitHint").textContent = ready ? "" :
-    "Required: Employee ID, Area, Shift, and all questions marked *";
+  submitBtn.textContent = ready ? "Submit" : "Complete required fields";
+  var missing = [];
+  if (!empOk) missing.push("Employee ID");
+  if (!areaOk) missing.push("Area (pick from the list)");
+  if (!dateOk) missing.push("Date");
+  if (!state.shift) missing.push("Shift");
+  if (!qOk) missing.push("all questions");
+  document.getElementById("submitHint").textContent = missing.length ? "Still needed: " + missing.join(", ") : "";
 }
 
-/* report */
-function buildAnswerLines(){
-  var arr = [];
-  state.category.questions.forEach(function(q,i){
-    var a = state.answers[i]===null ? "-" : String(state.answers[i]);
-    var line = "Q"+(i+1)+": " + a;
-    if (q.type==="yesno" && state.answers[i]==="No" && state.comments[i]) line += " | Comment: " + state.comments[i];
-    arr.push({line:line, text:"Q"+(i+1)+"Text: "+q.text});
-  });
-  return arr;
-}
 function buildReport(){
+  var qs = QUESTIONS[state.cat];
+  var area = document.getElementById("areaInput").value.trim();
+  var emp = document.getElementById("empId").value.trim();
+  var dt = document.getElementById("dateInput").value;
+  var rmks = document.getElementById("remarks").value.trim();
   var L = [];
-  L.push("=== 5S SHINE REPORT ===");
-  L.push("Date: " + new Date().toISOString());
-  L.push("Category: " + state.category.name);
-  L.push("EmployeeID: " + document.getElementById("empId").value.trim());
-  L.push("AreaResponsible: " + (document.getElementById("areaResp").value.trim() || "-"));
-  L.push("Area: " + document.getElementById("areaLoc").value.trim());
+  L.push("=== 5S SHINE PLAN REPORT ===");
+  L.push("Site: " + state.site);
+  L.push("BU: " + state.bu);
+  L.push("Category: " + state.cat);
+  L.push("Area: " + area);
+  L.push("EmployeeID: " + emp);
+  L.push("Date: " + dt);
   L.push("Shift: " + state.shift);
-  buildAnswerLines().forEach(function(o){ L.push(o.line); L.push(o.text); });
+  qs.forEach(function(q,i){
+    var line = "Q"+(i+1)+": " + state.answers[i];
+    if (state.answers[i]==="No" && state.comments[i]) line += " | Comment: " + state.comments[i];
+    L.push(line);
+    L.push("Q"+(i+1)+"Text: " + q);
+  });
   L.push("Photos: " + state.photos.length);
-  L.push("Files: " + (state.docs.length ? state.docs.map(function(f){return f.name;}).join(", ") : "0"));
-  L.push("Remarks: " + (document.getElementById("remarks").value.trim() || "-"));
+  L.push("Remarks: " + (rmks || "N/A"));
   L.push("=== END ===");
   var data = {
-    date: new Date().toISOString(),
-    category: state.category.name,
-    employeeId: document.getElementById("empId").value.trim(),
-    areaResponsible: document.getElementById("areaResp").value.trim(),
-    area: document.getElementById("areaLoc").value.trim(),
-    shift: state.shift,
-    answers: state.category.questions.map(function(q,i){
-      return {q:q.text, a:state.answers[i], comment:state.comments[i]||""};
-    }),
+    site: state.site, bu: state.bu, category: state.cat, area: area,
+    employeeId: emp, date: dt, shift: state.shift,
+    answers: qs.map(function(q,i){ return {q:q, a:state.answers[i], comment:state.comments[i]||""}; }),
     photos: state.photos.length,
-    files: state.docs.map(function(f){return f.name;}),
-    remarks: document.getElementById("remarks").value.trim()
+    remarks: rmks || "N/A",
+    submittedAt: new Date().toISOString()
   };
   L.push("===DATA===");
   L.push(JSON.stringify(data));
@@ -641,33 +635,25 @@ function buildReport(){
 
 submitBtn.onclick = async function(){
   if (submitBtn.disabled) return;
+  var area = document.getElementById("areaInput").value.trim();
+  var dt = document.getElementById("dateInput").value;
   var report = buildReport();
-  var subject = CONFIG.emailSubject + " | " + state.category.name + " | " +
-                document.getElementById("areaLoc").value.trim() + " | " +
-                new Date().toLocaleDateString();
+  var subject = SUBJECT_PREFIX + " - " + state.site + " - " + state.bu + " - " + state.cat + " - " + area + " - " + dt;
   try{
     var log = JSON.parse(localStorage.getItem("shine_log")||"[]");
     log.push({
-      t: Date.now(),
-      cat: state.category.name,
-      area: document.getElementById("areaLoc").value.trim(),
+      t: Date.now(), date: dt,
+      site: state.site, bu: state.bu, cat: state.cat, area: area,
       emp: document.getElementById("empId").value.trim(),
       shift: state.shift,
-      no: state.answers.filter(function(a,i){return state.category.questions[i].type==="yesno" && a==="No";}).length,
-      photos: state.photos.length,
-      ans: state.category.questions.map(function(q,i){
-        var a = state.answers[i]===null ? "-" : String(state.answers[i]);
-        if (q.type==="yesno" && a==="No" && state.comments[i]) a += " ("+state.comments[i]+")";
-        return "Q"+(i+1)+"="+a;
-      }).join("; "),
-      remarks: document.getElementById("remarks").value.trim()
+      no: state.answers.filter(function(a){return a==="No";}).length,
+      photos: state.photos.length
     });
     localStorage.setItem("shine_log", JSON.stringify(log));
   }catch(_){}
   document.getElementById("reportOut").textContent = report;
-  lastShare = { report: report, subject: subject,
-                files: state.photos.map(function(p){return p.file;}).concat(state.docs) };
-  go("done");
+  lastShare = { report: report, subject: subject, files: state.photos.map(function(p){return p.file;}) };
+  show("done");
   await sendShare();
 };
 
@@ -676,23 +662,20 @@ async function sendShare(){
   var report = lastShare.report, subject = lastShare.subject, files = lastShare.files;
   var doneMsg = document.getElementById("doneMsg");
   if (files.length && navigator.canShare && navigator.canShare({files: files})){
-    doneMsg.textContent = "Your phone's share menu opened - choose your email or Teams app and send to " + CONFIG.emailTo + ". Report and attachments are included.";
-    try{ await navigator.share({title:subject, text:"Send this report to: " + CONFIG.emailTo + "\n\n" + report, files:files}); }catch(_){}
-  } else if (!files.length && navigator.share){
-    doneMsg.textContent = "Your phone's share menu opened - choose your email or Teams app and send to " + CONFIG.emailTo + ".";
-    try{ await navigator.share({title:subject, text:report}); }catch(_){}
+    doneMsg.textContent = "Your phone's share menu opened - choose your email app and send to " + EMAIL_TO + ". Report and photos are attached.";
+    try{ await navigator.share({title:subject, text:"Send this report to: " + EMAIL_TO + "\n\nSubject: " + subject + "\n\n" + report, files:files}); }catch(_){}
   } else {
     doneMsg.textContent = files.length
-      ? "Email draft opened with the report text. Attachments can't attach automatically on this device - they've been downloaded, please attach them to the email before sending."
-      : "Email draft opened with the report text - just press Send.";
+      ? "Email draft opened with the report - the address and subject are pre-filled. Photos were downloaded, please attach them before sending."
+      : "Email draft opened - the address and subject are pre-filled, just press Send.";
     files.forEach(function(f,i){
       var a = document.createElement("a");
       a.href = URL.createObjectURL(f);
-      a.download = f.name || ("attachment_"+(i+1));
+      a.download = f.name || ("photo_"+(i+1)+".jpg");
       a.click();
       setTimeout(function(){URL.revokeObjectURL(a.href);}, 5000);
     });
-    location.href = "mailto:" + encodeURIComponent(CONFIG.emailTo) +
+    location.href = "mailto:" + encodeURIComponent(EMAIL_TO) +
       "?subject=" + encodeURIComponent(subject) +
       "&body=" + encodeURIComponent(report);
   }
@@ -707,80 +690,63 @@ document.getElementById("copyBtn").onclick = async function(e){
   }catch(_){ e.target.textContent = "Select & copy the text above"; }
 };
 
-/* entries */
+/* ── View Entries ── */
 function getLog(){
   try{ return JSON.parse(localStorage.getItem("shine_log")||"[]"); }catch(_){ return []; }
 }
 function renderEntries(){
+  document.getElementById("entriesCrumb").textContent = state.site + " · " + state.bu;
   var list = document.getElementById("entryList");
   list.innerHTML = "";
-  var today = new Date().toDateString();
-  var todays = getLog().filter(function(e){return new Date(e.t).toDateString() === today;}).reverse();
-  if (!todays.length){
-    list.innerHTML = '<div class="empty">No entries submitted from this device today.</div>';
+  var mine = getLog().filter(function(e){return e.site===state.site && e.bu===state.bu;}).reverse();
+  if (!mine.length){
+    list.innerHTML = '<div class="empty">No entries from this device for this Site/BU yet.</div>';
     return;
   }
-  todays.forEach(function(e){
+  mine.forEach(function(e){
     var d = document.createElement("div");
     d.className = "card entry";
     d.innerHTML = '<div class="e1"></div><div class="e2"></div>';
     d.querySelector(".e1").textContent = e.cat + " · " + e.area;
-    d.querySelector(".e2").textContent = new Date(e.t).toLocaleTimeString() + " · Emp " + e.emp +
+    d.querySelector(".e2").textContent = e.date + " · " + e.shift + " · Emp " + e.emp +
       " · " + e.no + " issue(s) · " + e.photos + " photo(s)";
     list.appendChild(d);
   });
 }
 
-/* dashboard */
-function renderDash(){
-  var today = new Date().toDateString();
-  document.getElementById("dashDate").textContent =
-    new Date().toLocaleDateString(undefined,{day:"2-digit",month:"short",year:"numeric"});
-  var todays = getLog().filter(function(e){return new Date(e.t).toDateString() === today;});
-  var grid = document.getElementById("dashGrid");
-  grid.innerHTML = "";
-  CONFIG.areas.forEach(function(a){
-    var hits = todays.filter(function(e){return e.area === a;});
-    var t = document.createElement("div");
-    t.className = "dtile " + (hits.length ? "ok" : "miss");
-    var s = document.createElement("small");
-    s.textContent = hits.length ? (hits.length + " check(s) today") : "Not checked yet";
-    t.textContent = a;
-    t.appendChild(s);
-    grid.appendChild(t);
-  });
-  var lg = document.getElementById("dashLog");
-  lg.innerHTML = "";
-  var recent = getLog().slice(-30).reverse();
-  if (!recent.length){
-    lg.innerHTML = '<div class="empty">No submissions logged on this device yet.</div>';
-  } else {
-    recent.forEach(function(e){
-      var d = document.createElement("div");
-      d.className = "card entry";
-      d.innerHTML = '<div class="e1"></div><div class="e2"></div>';
-      d.querySelector(".e1").textContent = e.cat + " · " + e.area;
-      d.querySelector(".e2").textContent = new Date(e.t).toLocaleString() + " · Emp " + e.emp +
-        " · " + e.shift + " · " + e.no + " issue(s)";
-      lg.appendChild(d);
+/* ── Daily Summary ── */
+document.getElementById("dailyDate").addEventListener("input", renderDaily);
+document.getElementById("dailySearch").addEventListener("input", renderDaily);
+function renderDaily(){
+  var dt = document.getElementById("dailyDate").value || todayISO();
+  var q = document.getElementById("dailySearch").value.trim().toLowerCase();
+  var todays = getLog().filter(function(e){return e.date === dt;});
+  var wrap = document.getElementById("dailyWrap");
+  wrap.innerHTML = "";
+  Object.keys(AREAS).forEach(function(cat){
+    var head = document.createElement("div");
+    head.className = "dsec"; head.textContent = cat;
+    var grid = document.createElement("div");
+    grid.className = "dgrid";
+    var shown = 0;
+    AREAS[cat].forEach(function(a){
+      if (q && a.toLowerCase().indexOf(q) < 0) return;
+      var hits = todays.filter(function(e){return e.cat===cat && e.area===a;});
+      var t = document.createElement("div");
+      t.className = "dtile " + (hits.length ? "ok" : "miss");
+      var s = document.createElement("small");
+      s.textContent = hits.length ? (hits.length + " check(s)") : "Not checked";
+      t.textContent = a;
+      t.appendChild(s);
+      grid.appendChild(t);
+      shown++;
     });
+    if (shown){ wrap.appendChild(head); wrap.appendChild(grid); }
+  });
+  if (!wrap.children.length){
+    wrap.innerHTML = '<div class="empty">No areas match your search.</div>';
   }
 }
-document.getElementById("csvBtn").onclick = function(){
-  function esc(v){ return '"' + String(v===undefined||v===null?"":v).replace(/"/g,'""') + '"'; }
-  var rows = [["Date","Time","Category","Area","EmployeeID","Shift","Issues","Answers","Remarks"].map(esc).join(",")];
-  getLog().forEach(function(e){
-    var d = new Date(e.t);
-    rows.push([d.toLocaleDateString(), d.toLocaleTimeString(), e.cat, e.area, e.emp,
-               e.shift||"", e.no, e.ans||"", e.remarks||""].map(esc).join(","));
-  });
-  var blob = new Blob(["\uFEFF" + rows.join("\r\n")], {type:"text/csv;charset=utf-8"});
-  var a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "shine_log.csv";
-  a.click();
-  setTimeout(function(){URL.revokeObjectURL(a.href);}, 5000);
-};
 </script>
 </body>
 </html>
