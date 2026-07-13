@@ -101,6 +101,18 @@
   .dnote{font-size:.78rem;color:var(--muted);margin-bottom:12px;line-height:1.4}
   .legend{display:flex;gap:14px;margin-bottom:12px;font-size:.8rem;font-weight:600}
   .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+  .statrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 8px;text-align:center}
+  .stat .n{font-size:1.5rem;font-weight:800;color:var(--pri)}
+  .stat .l{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-top:2px}
+  .widgetcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
+  .wtitle{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--pri);margin-bottom:10px}
+  .barrow{margin-bottom:12px}
+  .barrow .bl{display:flex;justify-content:space-between;font-size:.8rem;font-weight:700;margin-bottom:5px;gap:8px}
+  .barrow .bl span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .barrow .bl span:last-child{color:var(--muted);font-weight:600;flex-shrink:0}
+  .bartrack{height:12px;border-radius:999px;background:#e2e7e9;overflow:hidden}
+  .barfill{height:100%;border-radius:999px;background:var(--ok)}
   .dsec{font-weight:800;font-size:1rem;margin:18px 2px 10px;text-decoration:underline}
   .dgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
   .dtile{border-radius:10px;padding:12px 10px;color:#fff;font-weight:700;font-size:.8rem;
@@ -279,6 +291,7 @@
         </div>
       </div>
     </div>
+    <div id="dailyStats"></div>
     <div class="legend">
       <span><i style="background:var(--ok)"></i>Checked</span>
       <span><i style="background:var(--bad)"></i>Not checked</span>
@@ -901,6 +914,52 @@ function renderDaily(){
   var dt = document.getElementById("dailyDate").value || todayISO();
   var q = document.getElementById("dailySearch").value.trim().toLowerCase();
   var todays = getLog().filter(function(e){return e.date === dt;});
+
+  /* ── counters + progress bars ── */
+  var statWrap = document.getElementById("dailyStats");
+  statWrap.innerHTML = "";
+  var cats = Object.keys(AREAS);
+  function catDone(cat){
+    return AREAS[cat].filter(function(a){
+      return todays.some(function(e){return e.cat===cat && e.area===a;});
+    }).length;
+  }
+  var totalAreas = 0, doneAreas = 0;
+  cats.forEach(function(cat){ totalAreas += AREAS[cat].length; doneAreas += catDone(cat); });
+  var issues = todays.reduce(function(s,e){return s + (e.no||0);}, 0);
+
+  var row = document.createElement("div");
+  row.className = "statrow";
+  [[todays.length, "Checks today"],[doneAreas + "/" + totalAreas, "Areas done"],[issues, "Issues found"]]
+    .forEach(function(pair){
+      var d = document.createElement("div");
+      d.className = "stat";
+      d.innerHTML = '<div class="n"></div><div class="l"></div>';
+      d.querySelector(".n").textContent = pair[0];
+      d.querySelector(".l").textContent = pair[1];
+      row.appendChild(d);
+    });
+  statWrap.appendChild(row);
+
+  var barCard = document.createElement("div");
+  barCard.className = "widgetcard";
+  var bt = document.createElement("div");
+  bt.className = "wtitle"; bt.textContent = "Progress by checklist";
+  barCard.appendChild(bt);
+  cats.forEach(function(cat){
+    var done = catDone(cat), total = AREAS[cat].length;
+    var pct = total ? Math.round(done/total*100) : 0;
+    var br = document.createElement("div");
+    br.className = "barrow";
+    br.innerHTML = '<div class="bl"><span></span><span></span></div><div class="bartrack"><div class="barfill"></div></div>';
+    br.querySelectorAll(".bl span")[0].textContent = cat;
+    br.querySelectorAll(".bl span")[1].textContent = done + " / " + total;
+    br.querySelector(".barfill").style.width = pct + "%";
+    barCard.appendChild(br);
+  });
+  statWrap.appendChild(barCard);
+
+  /* ── red/green area tiles (existing) ── */
   var wrap = document.getElementById("dailyWrap");
   wrap.innerHTML = "";
   Object.keys(AREAS).forEach(function(cat){
