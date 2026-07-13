@@ -314,10 +314,8 @@
     <div class="done-h">Report ready to send</div>
     <div class="done-p" id="doneMsg"></div>
     <pre class="report" id="reportOut"></pre>
-    <button class="btn" id="shareAgainBtn">Open email again</button>
-    <button class="btn ghost" id="photosBtn" style="display:none">Share photos to email app</button>
-    <button class="btn ghost" id="copyBtn">Copy report text</button>
-    <button class="btn ghost" onclick="location.reload()">New check</button>
+    <button class="btn" id="sendAgainBtn">Send Again</button>
+    <button class="btn ghost" id="homeBtn">Home</button>
   </section>
 </main>
 
@@ -781,13 +779,56 @@ submitBtn.onclick = async function(){
   document.getElementById("reportOut").textContent = buildFullReport();
   var files = state.photos.map(function(p){return p.file;});
   lastShare = { body: buildEmailBody(), subject: subject, files: files };
-  document.getElementById("photosBtn").style.display = files.length ? "block" : "none";
-  document.getElementById("doneMsg").textContent = files.length
-    ? "An email draft opened with the address, subject and report already filled in - just press Send. For the photos, tap 'Share photos to email app' below and send them in a second email with the same subject."
-    : "An email draft opened with the address, subject and report already filled in - just press Send.";
   show("done");
-  openMailto();   /* runs inside the tap - opens email with To/Subject/Body pre-filled */
+  sendReport();   /* runs inside the tap gesture */
 };
+
+/* ── Send ONE email with the photos attached ──
+   mailto: cannot attach files (browser limitation), so when there are
+   photos we use the Web Share API instead: the operator picks their
+   email app in the share sheet and the photos arrive as real
+   attachments with the report text in the body.
+   With no photos we keep the plain mailto flow (To/Subject pre-filled). */
+async function sendReport(){
+  if (!lastShare) return;
+  var files = lastShare.files || [];
+  var msg = document.getElementById("doneMsg");
+
+  if (files.length && navigator.canShare && navigator.canShare({files: files})){
+    msg.textContent = "Choose your email app in the share menu. The photos are already attached and the report is in the body. Set To: " + EMAIL_TO + " (the first line of the message is the subject), then press Send.";
+    /* To + subject included in the text because the share sheet cannot
+       pre-fill the To field, and some mail apps ignore the title */
+    var shareText = "To: " + EMAIL_TO + "\nSubject: " + lastShare.subject + "\n\n" + lastShare.body;
+    try{
+      await navigator.share({ title: lastShare.subject, text: shareText, files: files });
+    }catch(err){
+      if (err && err.name === "AbortError") return;  /* operator closed the sheet - "Send Again" re-opens it */
+      /* share failed for another reason - fall back to mailto + downloads */
+      openMailto();
+      downloadPhotos(files);
+      msg.textContent = "Sharing was not available, so an email draft opened and the photos were downloaded. Attach the downloaded photos to the email before sending.";
+    }
+    return;
+  }
+
+  openMailto();
+  if (files.length){
+    downloadPhotos(files);
+    msg.textContent = "An email draft opened with the address, subject and report already filled in. This device cannot attach files automatically, so the photos were downloaded - attach them to the email before pressing Send.";
+  } else {
+    msg.textContent = "An email draft opened with the address, subject and report already filled in - just press Send.";
+  }
+}
+
+function downloadPhotos(files){
+  files.forEach(function(f,i){
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(f);
+    a.download = f.name || ("photo_"+(i+1)+".jpg");
+    a.click();
+    setTimeout(function(){URL.revokeObjectURL(a.href);}, 5000);
+  });
+}
 
 /* address NOT encoded; subject/body encoded; body kept compact for mailto limits */
 function openMailto(){
@@ -806,35 +847,8 @@ function openMailto(){
     location.href = url;
   }
 }
-async function sharePhotos(){
-  if (!lastShare || !lastShare.files.length) return;
-  var files = lastShare.files;
-  if (navigator.canShare && navigator.canShare({files: files})){
-    try{
-      await navigator.share({title: lastShare.subject,
-        text: "Photos for: " + lastShare.subject, files: files});
-    }catch(_){}
-  } else {
-    files.forEach(function(f,i){
-      var a = document.createElement("a");
-      a.href = URL.createObjectURL(f);
-      a.download = f.name || ("photo_"+(i+1)+".jpg");
-      a.click();
-      setTimeout(function(){URL.revokeObjectURL(a.href);}, 5000);
-    });
-    alert("Photos downloaded - attach them to the email before sending.");
-  }
-}
-document.getElementById("shareAgainBtn").onclick = openMailto;
-document.getElementById("photosBtn").onclick = sharePhotos;
-
-document.getElementById("copyBtn").onclick = async function(e){
-  try{
-    await navigator.clipboard.writeText(document.getElementById("reportOut").textContent);
-    e.target.textContent = "Copied ✓";
-    setTimeout(function(){e.target.textContent="Copy report text";},1500);
-  }catch(_){ e.target.textContent = "Select & copy the text above"; }
-};
+document.getElementById("sendAgainBtn").onclick = sendReport;
+document.getElementById("homeBtn").onclick = function(){ location.reload(); };
 
 /* ── View Entries ── */
 function getLog(){
